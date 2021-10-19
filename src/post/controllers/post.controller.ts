@@ -8,19 +8,21 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 
 import { CreatePostDto } from '../dtos';
 import { EditPostDto } from '../dtos/edit-post.dtos';
 import { PostService } from '../services/post.service';
 
+@ApiTags('Post')
 @Controller('post')
 export class PostController {
   constructor(private readonly _postService: PostService) {}
 
   // Retorno de todos los post
   @Get()
-  getMany() {
-    return this._postService.getMany();
+  async getMany() {
+    return await this._postService.getMany();
   }
 
   // Retornar un post
