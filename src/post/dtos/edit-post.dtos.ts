@@ -1,5 +1,5 @@
-import { OmitType, PartialType } from '@nestjs/mapped-types';
-import { CreatePostDto } from '.';
+import { OmitType, PartialType } from '@nestjs/swagger';
+import { CreatePostDto } from './create-post.dtos';
 
 // Se realiza un extends de CreatePostDto, y define todos los campos opcionales
 // export class EditPostDto extends PartialType(CreatePostDto) {}
