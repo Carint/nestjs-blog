@@ -5,7 +5,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity()
+@Entity('post')
 export class Post {
   @PrimaryGeneratedColumn()
   id: number;

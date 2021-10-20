@@ -22,7 +22,7 @@ export class PostService {
     };
   }
 
-  // Retornar un post
+  // Retornar un post por id
   async getOne(id: number) {
     const data: Post = await this._postRepository.findOne(id);
 
@@ -40,20 +40,21 @@ export class PostService {
   async createOne(dto: CreatePostDto) {
     // TODO: corregir el error del parametro dto y tipado de las const
     // const data: Post = this._postRepository.create(dto);
-    const data = this._postRepository.create(dto as any);
-    const saveData = await this._postRepository.save(data);
+    const data = this._postRepository.create(dto);
 
     if (!data) {
       throw new NotFoundException('Post no almacenado');
     }
 
+    const saveData = await this._postRepository.save(data);
+
     return {
-      message: 'Guardado exitoso',
+      message: 'Post creado',
       saveData,
     };
   }
 
-  // Editar un post
+  // Editar un post por su id
   async editOne(id: number, dto: EditPostDto) {
     const data: Post = await this._postRepository.findOne(id);
 
@@ -65,13 +66,18 @@ export class PostService {
     const saveData: Post = await this._postRepository.save(editedData);
 
     return {
-      message: 'Datos actualizados',
+      message: 'Post editado',
       saveData,
     };
   }
 
-  // Eliminar un post
+  // Eliminar un post por id
   async deleteOne(id: number) {
-    return await this._postRepository.delete(id);
+    const data = await this._postRepository.delete(id);
+
+    return {
+      message: 'Post eliminado',
+      data,
+    };
   }
 }

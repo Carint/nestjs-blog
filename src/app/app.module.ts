@@ -5,11 +5,15 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 import { PostModule } from 'src/post/post.module';
-// import { Post } from 'src/post/entities/post.entity';
+
+import { Post } from 'src/post/entities/post.entity';
+import { User } from 'src/user/entities';
+import { UserModule } from '../user/user.module';
 
 @Module({
   imports: [
     PostModule,
+    UserModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -17,8 +21,8 @@ import { PostModule } from 'src/post/post.module';
       username: 'postgres',
       password: '4510',
       database: 'blog',
-      // entities: [Post],
-      entities: [__dirname + './**/**/*entity{.ts,.js}'],
+      entities: [Post, User],
+      // entities: [__dirname + '/**/*.entity{.ts,.js}'],
       autoLoadEntities: true,
       synchronize: true,
     }),
