@@ -3,13 +3,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { AppController } from './app.controller';
+
 import { AppService } from './app.service';
 
 import { PostModule } from 'src/post/post.module';
+import { UserModule } from '../user/user.module';
+import { AuthModule } from 'src/auth/auth.module';
 
 import { Post } from 'src/post/entities/post.entity';
 import { User } from 'src/user/entities';
-import { UserModule } from '../user/user.module';
 
 @Module({
   imports: [
@@ -48,6 +50,7 @@ import { UserModule } from '../user/user.module';
     }), // TODO: Ver documentación para mayor configuración docs.nestjs.com/techniques/configuration
     PostModule,
     UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,9 +1,13 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateUserDto } from '../dtos';
-import { User } from '../entities';
-import { EditUserDto } from '../dtos/edit-user.dto';
+import { CreateUserDto } from './dtos';
+import { User } from './entities';
+import { EditUserDto } from './dtos/edit-user.dto';
 
 @Injectable()
 export class UserService {
@@ -33,6 +37,15 @@ export class UserService {
       message: 'Consulta exitosa',
       data,
     };
+  }
+
+  // Retornar un usuario por email
+  async getOneForEmail(email: string) {
+    return await this._userRepository
+      .createQueryBuilder('user')
+      .where({ email })
+      .addSelect('user.password')
+      .getOne();
   }
 
   // Crear un nuevo usuario
