@@ -1,14 +1,17 @@
 import { Logger, ValidationPipe } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
+import { initSwagger } from './app.swagger';
 
 import { AppModule } from './app/app.module';
 
-import { initSwagger } from './app.swagger';
+import { SERVER_PORT } from './config/constants';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const config = app.get(ConfigService);
   const logger = new Logger();
-  const port = 3000;
+  const port = parseInt(config.get<string>(SERVER_PORT), 10) || 3000;
 
   // Generación de la documentación del API
   initSwagger(app);
