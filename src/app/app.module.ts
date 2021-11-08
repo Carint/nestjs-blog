@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { AccessControlModule } from 'nest-access-control';
 
 import { AppController } from './app.controller';
 
@@ -12,6 +13,7 @@ import { AuthModule } from 'src/auth/auth.module';
 
 import { Post } from 'src/post/entities/post.entity';
 import { User } from 'src/user/entities';
+import { roles } from 'src/app.roles';
 
 @Module({
   imports: [
@@ -48,6 +50,7 @@ import { User } from 'src/user/entities';
       isGlobal: true,
       envFilePath: '.dev.env',
     }), // TODO: Ver documentación para mayor configuración docs.nestjs.com/techniques/configuration
+    AccessControlModule.forRoles(roles),
     PostModule,
     UserModule,
     AuthModule,

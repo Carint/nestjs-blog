@@ -31,7 +31,7 @@ export class AuthService {
 
     return {
       user: rest,
-      acces_token: this._jwtService.sign(payload),
+      token: this._jwtService.sign(payload),
     };
   }
 }
